@@ -5,21 +5,17 @@ require_once __DIR__ . "/../../libraries/parameters.php";
 require_once __DIR__ . "/../../entities/users/delete-user.php";
 
 try {
-  $parameters = getParametersForRoute("/users/:id");
+    $parameters = getParametersForRoute("/users/:user");
+    $id = $parameters["user"];
+    deleteUser($id);
 
-  $id = $parameters["id"];
-
-  if (!deleteUser($id)) {
-    throw new Exception("User not found");
-  }
-
-  echo jsonResponse(200, [], [
-    "success" => true,
-    "message" => "User deleted"
-  ]);
+    echo jsonResponse(200, [], [
+        "success" => true,
+        "message" => "deleted"
+    ]);
 } catch (Exception $exception) {
-  echo jsonResponse(500, [], [
-    "success" => false,
-    "message" => $exception->getMessage()
-  ]);
+    echo jsonResponse(200, [], [
+        "success" => false,
+        "error" => $exception->getMessage()
+    ]);
 }
