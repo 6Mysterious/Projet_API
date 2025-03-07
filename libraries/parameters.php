@@ -9,7 +9,7 @@ function getParametersForRoute(string $route): array
     $pathParts = preg_split($pathSeparatorPattern, trim($path, "/"));
 
     if (count($routeParts) !== count($pathParts)) {
-        return false;
+        return [];
     }
 
     $parameters = [];

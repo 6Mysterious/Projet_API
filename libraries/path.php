@@ -2,11 +2,12 @@
 
 function isPath(string $route): bool
 {
-    $path = $_SERVER["REQUEST_URI"];
+    $requestedPath = strtok($_SERVER["REQUEST_URI"], '?');
+
     $pathSeparatorPattern = "#/#";
 
     $routeParts = preg_split($pathSeparatorPattern, trim($route, "/"));
-    $pathParts = preg_split($pathSeparatorPattern, trim($path, "/"));
+    $pathParts = preg_split($pathSeparatorPattern, trim($requestedPath, "/"));
 
     if (count($routeParts) !== count($pathParts)) {
         return false;
