@@ -1,16 +1,20 @@
 <?php
 
+
 function getUsers(): array
 {
     require_once __DIR__ . "/../../database/connection.php";
     $databaseConnection = getDatabaseConnection();
-    $name = $_GET['name'] ?? null;
-    
-    if ($name) {
-        $stmt = $databaseConnection->prepare("SELECT * FROM users WHERE LOWER(name) LIKE LOWER(:name) OR LOWER(surname) LIKE LOWER(:name)");
-        $nameParam = '%' . $name . '%';
-        $stmt->bindParam(':name', $nameParam);
+
+    // Récupération de l'ID à partir des paramètres GET
+    $id = $_GET['id'] ?? null;
+
+    if ($id) {
+        // Requête pour récupérer l'utilisateur par ID
+        $stmt = $databaseConnection->prepare("SELECT * FROM users WHERE id = :id");
+        $stmt->bindParam(':id', $id);
     } else {
+        // Requête pour récupérer tous les utilisateurs si aucun ID n'est fourni
         $stmt = $databaseConnection->prepare("SELECT * FROM users");
     }
     

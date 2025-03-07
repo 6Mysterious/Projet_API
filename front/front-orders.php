@@ -7,7 +7,8 @@ if (!$data || !$data["success"]) {
     die("Erreur : Impossible de récupérer les commandes.");
 }
 
-$orders = $data["orders"];
+
+$orders = $data["orders"] ?? []; 
 ?>
 
 <!DOCTYPE html>
@@ -31,27 +32,27 @@ $orders = $data["orders"];
         <thead>
             <tr>
                 <th>ID</th>  
-                <th>email</th>
-                <th>description</th>
-                <th>price</th>
-                <th>quantity</th>
-                <th>purchase date</th>
+                <th>Email</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Date d'achat</th>
             </tr>
         </thead>
         <tbody>
             <?php if (!empty($orders)): ?>
                 <?php foreach ($orders as $order): ?>
                     <tr>
-                        <td><?= $order["id"] ?></td>
-                        <td><?= $order["email_users"] ?></td>
-                        <td><?= $order["description"] ?></td>
-                        <td><?= $order["price"] ?></td>
-                        <td><?= $order["quantity"] ?></td>
-                        <td><?= $order["purchase_date"] ?></td>
+                        <td><?= htmlspecialchars($order["id"]) ?></td>
+                        <td><?= htmlspecialchars($order["email_users"]) ?></td>
+                        <td><?= htmlspecialchars($order["description"]) ?></td>
+                        <td><?= htmlspecialchars($order["price"]) ?></td>
+                        <td><?= htmlspecialchars($order["quantity"]) ?></td>
+                        <td><?= htmlspecialchars($order["purchase_date"]) ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
-                <tr><td colspan="4">Aucune commande trouvée.</td></tr>
+                <tr><td colspan="6">Aucune commande trouvée.</td></tr>
             <?php endif; ?>
         </tbody>
     </table>

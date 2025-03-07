@@ -1,25 +1,30 @@
 <?php
 
-// Récupérer des données depuis le corps de la requête
-// Faire une requête SQL pour créer un utilisateur
-// Renvoyer une réponse (succès, echec) à l'utilisateur de l'API
-
-require_once __DIR__ . "/../../libraries/body.php";
 require_once __DIR__ . "/../../libraries/response.php";
 require_once __DIR__ . "/../../entities/users/create-user.php";
+require_once __DIR__ . "/../../libraries/body.php";
 
 try {
-    $body = getBody();
+  $body = getBody();
+  $email = $body["email"];
+  $password = $body["password"];
+  $phone_number = $body["phone_number"];
+  $address = $body["address"];
+  $name = $body["name"];
+  $surname = $body["surname"];
 
-    createUser($body["email"], $body["password"]);
 
-    echo jsonResponse(200, [], [
-        "success" => true,
-        "message" => "Utlisateur créé"
-    ]);
+  if (!createUser($email, $password, $phone_number, $address, $name, $surname)) {
+    throw new Exception("User could not be created.");
+  }
+
+  echo jsonResponse(200, [], [
+    "success" => true,
+    "message" => "User created successfully."
+  ]);
 } catch (Exception $exception) {
-    echo jsonResponse(500, [], [
-        "success" => false,
-        "error" => $exception->getMessage()
-    ]);
+  echo jsonResponse(500, [], [
+      "success" => false,
+      "message" => $exception->getMessage()
+  ]);
 }

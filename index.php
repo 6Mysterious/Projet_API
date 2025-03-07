@@ -12,6 +12,23 @@ if (isPath("/users")) {
     }
 }
 
+if (isPath("/users") && isPostMethod()) {
+    require_once __DIR__ . "/routes/users/post.php";
+    exit;
+}
+
+
+if (isPath("/users/:id")) {    
+    if (isDeleteMethod()) {
+        require_once __DIR__ . "/routes/users/delete.php";
+        die();
+    }
+    if (isPatchMethod()) {
+        require_once __DIR__ . "/routes/users/patch.php";
+        die();
+    }
+}
+
 if (isPath("/orders")) {
     if (isGetMethod()) {
         require_once __DIR__ . "/routes/orders/get.php";
@@ -20,7 +37,7 @@ if (isPath("/orders")) {
 }
 
 if (isPath("/authenticate") && isPostMethod()) {
-    require_once __DIR__ . "/routes/authenticate/get.php";  
+    require_once __DIR__ . "/routes/auth/get.php";  
     exit;
 }
 

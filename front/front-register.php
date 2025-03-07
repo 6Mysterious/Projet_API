@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . "/../database/settings.php"; // Connexion à la base de données
-require_once __DIR__ . "/../entities/users/register-user.php"; // Fonction d'inscription
+require_once __DIR__ . "/../database/settings.php"; 
+require_once __DIR__ . "/../entities/users/register-user.php"; 
 
 $message = "";
 

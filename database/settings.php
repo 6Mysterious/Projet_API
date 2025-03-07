@@ -2,9 +2,9 @@
 
 return [
     'databaseDialect' => "mysql",
-    'databaseHostname' => "localhost",
+    'databaseHostname' => "ip",
     'databasePort' => 3306,
-    'databaseName' => "projetapi",
-    'databaseUsername' => "root",
-    'databasePassword' => ""
+    'databaseName' => "nomprojet",
+    'databaseUsername' => "utilisateur",
+    'databasePassword' => "motdepasse"
 ];
