@@ -57,6 +57,14 @@ if (isPath("orders/:order")) {
 }
 
 
+if (isPath("authenticate")) {
+    if (isGetMethod()) {
+        require_once __DIR__ . "/routes/authenticate/get.php";
+        die();
+    }
+}
+
+
 echo jsonResponse(404, [], [
     "success" => false,
     "message" => "Route not found"
