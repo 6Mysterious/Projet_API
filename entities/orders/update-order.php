@@ -1,6 +1,6 @@
 <?php
 
-function updateUser(string $id, $columns): void
+function updateOrder(string $id, $columns): void
 {
     if (count($columns) === 0) {
         return;
@@ -8,7 +8,7 @@ function updateUser(string $id, $columns): void
 
     require_once __DIR__ . "/../../database/connection.php";
 
-    $authorizedColumns = ["email", "password"];
+    $authorizedColumns = ["email_user", "description", "price", "quantity", "purchase_date"];
 
     $set = [];
 
@@ -29,6 +29,6 @@ function updateUser(string $id, $columns): void
     $set = implode(", ", $set);
 
     $databaseConnection = getDatabaseConnection();
-    $updateUserQuery = $databaseConnection->prepare("UPDATE users SET $set WHERE id = :id;");
-    $updateUserQuery->execute($sanitizedColumns);
+    $updateOrderQuery = $databaseConnection->prepare("UPDATE orders SET $set WHERE id = :id;");
+    $updateOrderQuery->execute($sanitizedColumns);
 }

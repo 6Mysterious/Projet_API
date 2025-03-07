@@ -3,14 +3,14 @@
 require_once __DIR__ . "/../../libraries/response.php";
 require_once __DIR__ . "/../../libraries/body.php";
 require_once __DIR__ . "/../../libraries/parameters.php";
-require_once __DIR__ . "/../../entities/users/update-user.php";
+require_once __DIR__ . "/../../entities/orders/update-order.php";
 
 try {
     $body = getBody();
-    $parameters = getParametersForRoute("/users/:user");
-    $id = $parameters["user"];
+    $parameters = getParametersForRoute("/orders/:order");
+    $id = $parameters["order"];
 
-    updateUser($id, $body);
+    updateOrder($id, $body);
 
     echo jsonResponse(200, [], [
         "success" => true,

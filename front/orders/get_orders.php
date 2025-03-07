@@ -1,15 +1,34 @@
 <?php
 // Récupérer les données JSON depuis l'API en PHP
-$api_url = "http://localhost/orders"; // Modifie l'URL si besoin
-$json_data = file_get_contents($api_url);
+$api_url = "https://localhost/orders";
+
+$ch = curl_init($api_url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);  // Désactiver SSL en local si besoin
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+$json_data = curl_exec($ch);
+$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+// Vérifier si la réponse est vide ou une erreur HTTP
+if ($json_data === false || empty($json_data) || $http_status != 200) {
+    die("Erreur : L'API ne répond pas correctement. Code HTTP : $http_status. Réponse brute : " . htmlspecialchars($json_data));
+}
+
 $data = json_decode($json_data, true);
 
-// Vérifier si la récupération des données a réussi
-if (!$data || !$data["success"]) {
-    die("Erreur : Impossible de récupérer les commandes.");
+// Vérifier si le JSON est bien décodé
+if (!is_array($data)) {
+    die("Erreur : Impossible de décoder le JSON. Réponse brute : " . htmlspecialchars($json_data));
+}
+
+if (!isset($data["success"]) || !$data["success"] || !isset($data["orders"])) {
+    die("Erreur : Structure JSON inattendue. Voici la réponse : " . json_encode($data));
 }
 
 $orders = $data["orders"];
+
 ?>
 
 <!DOCTYPE html>

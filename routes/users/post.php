@@ -11,7 +11,7 @@ require_once __DIR__ . "/../../entities/users/create-user.php";
 try {
     $body = getBody();
 
-    createUser($body["email"], $body["password"]);
+    createUser($body["email"], $body["password"], $body["name"], $body["surname"], $body["adress"], $body["phone_number"]);
 
     echo jsonResponse(200, [], [
         "success" => true,

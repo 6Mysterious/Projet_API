@@ -1,13 +1,13 @@
 <?php
 
-function deleteUser(string $id): void
+function deleteOrder(string $id): void
 {
     require_once __DIR__ . "/../../database/connection.php";
 
     $databaseConnection = getDatabaseConnection();
-    $deleteUserQuery = $databaseConnection->prepare("DELETE FROM users WHERE id = :id");
+    $deleteOrderQuery = $databaseConnection->prepare("DELETE FROM orders WHERE id = :id");
 
-    $deleteUserQuery->execute([
+    $deleteOrderQuery->execute([
         "id" => $id
     ]);
 }

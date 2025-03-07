@@ -6,16 +6,16 @@
 
 require_once __DIR__ . "/../../libraries/body.php";
 require_once __DIR__ . "/../../libraries/response.php";
-require_once __DIR__ . "/../../entities/users/create-user.php";
+require_once __DIR__ . "/../../entities/orders/create-order.php";
 
 try {
     $body = getBody();
 
-    createUser($body["email"], $body["password"]);
+    createOrder($body["email_users"], $body["description"], $body["price"], $body["quantity"], $body["purchase_date"]);
 
     echo jsonResponse(200, [], [
         "success" => true,
-        "message" => "Utlisateur créé"
+        "message" => "Commande créé"
     ]);
 } catch (Exception $exception) {
     echo jsonResponse(500, [], [

@@ -1,6 +1,6 @@
 <?php
 
-function createUser(string $email, string $password): void
+function createUser(string $email, string $password, string $name, string $surname, string $adress, string $phone_number): void
 {
     require_once __DIR__ . "/../../database/connection.php";
 
@@ -17,7 +17,7 @@ function createUser(string $email, string $password): void
             
         ) VALUES (
             :email,
-            :password
+            :password,
             :name,
             :surname,
             :adress,
